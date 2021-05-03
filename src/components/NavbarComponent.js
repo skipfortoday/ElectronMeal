@@ -71,9 +71,9 @@ const NavbarComponent = (props) => {
                </a>
               </NavItem>    
               <NavItem>
-              <a href={"/laporan"}>
+              <Link to={"/laporan"}>
                 <NavLink> Laporan Bulanan</NavLink>
-               </a>
+               </Link>
               </NavItem> 
             </Nav>
             <Nav navbar> 

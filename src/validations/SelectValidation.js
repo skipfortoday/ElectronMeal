@@ -1,16 +1,20 @@
 const SelectValidation = (values) => {
     const errors = {};
   
-    if (!values.Nama || values.Nama === "") {
+    if (!values.Nama || values.Nama === undefined) {
       errors.Nama = "Nama harus diisi";
     }
   
     if (!values.TglAkhir|| values.TglAkhir=== "") {
-      errors.TglAkhir = "harus diisi";
+      errors.TglAkhir = "TglAkhir harus diisi";
     }
   
     if (!values.TglAwal|| values.TglAwal=== "") {
-      errors.TglAwal = "harus diisi";
+      errors.TglAwal = "TglAwal harus diisi";
+    }
+
+    if (!values.Kantin || values.Kantin.value === undefined) {
+      errors.Kantin = "Kantin Sharus diisi";
     }
   
     return errors;

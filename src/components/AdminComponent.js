@@ -12,7 +12,7 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import swal from 'sweetalert';
-import { deleteAdmin } from "../actions/adminAction";
+import { deleteAdmin, getAdminList } from "../actions/adminAction";
 
 const { SearchBar } = Search;
 
@@ -29,7 +29,7 @@ const handleClick = (dispatch, AdminID) => {
       dispatch(deleteAdmin(AdminID))
       swal("Data Admin Sukses dihapus", {
         icon: "success",
-      });window.location.reload();
+      }).then(()=> {dispatch(getAdminList())});
     } else {
       swal("Data gagal dihapus");
     }

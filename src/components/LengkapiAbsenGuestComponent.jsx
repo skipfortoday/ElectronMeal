@@ -7,10 +7,13 @@ import {
   Col,
   Label,
   Input,
+  Button,
   Row,
   Container,
 } from "reactstrap";
 import SelectValidation from "../validations/SelectValidation";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 const renderField = ({
   input,
@@ -78,7 +81,7 @@ const renderField2 = ({
            //onBlur={() => input.onBlur()}
         />
         {touched &&
-          ((error && <p style={{ color: "red" }}>{error}</p>) ||
+          ((error && <p style={{ color: "brown" }}>{error}</p>) ||
             (warning && <p style={{ color: "brown" }}>{warning}</p>))}
       </Col>
     </Row>
@@ -128,7 +131,7 @@ class LengkapiAbsenGuestComponent extends Component {
               </FormGroup>
             </Col>
 
-            <Col md={5}>
+            <Col md={3}>
               <FormGroup>
                 <Field
                   name="Kantin"
@@ -136,6 +139,23 @@ class LengkapiAbsenGuestComponent extends Component {
                   label="Nama:"
                   options={this.props.getOptKantin}
                 />
+              </FormGroup>
+            </Col>
+
+            <Col md={3}>
+              <FormGroup style={{ marginTop: "37px" }}>
+              <Button
+                      onClick={this.props.handleSubmit(values =>
+                        this.props.onSubmit({
+                          ...values,
+                          type: 'view'
+                        }))}
+                      color="dark"
+                      type="submit"
+                      disabled={this.props.submitting}
+                    >
+                      <FontAwesomeIcon icon={faSearch} /> View
+                    </Button>
               </FormGroup>
             </Col>
             </Row>

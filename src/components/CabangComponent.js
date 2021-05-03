@@ -64,7 +64,7 @@ const CabangComponent = (props) => {
         return { width: "75px" , backgroundColor:"#fec107" };
       },
       style: () => {
-        return { fontWeight : "bold" };
+        return { fontWeight: "bold",padding: "5px"  };
       },
     },
     {
@@ -75,7 +75,7 @@ const CabangComponent = (props) => {
         return { width: "100px", backgroundColor:"#fec107" };
       },
       style: () => {
-        return { fontWeight : "bold" };
+        return { fontWeight: "bold",padding: "5px"  };
       },
     },
     {
@@ -86,7 +86,7 @@ const CabangComponent = (props) => {
         return { width: "200px", backgroundColor:"#fec107" };
       },
       style: () => {
-        return { fontWeight : "bold" };
+        return { fontWeight: "bold",padding: "5px"  };
       },
       
     },
@@ -96,16 +96,19 @@ const CabangComponent = (props) => {
       headerStyle: () => {
         return { width: "40px", backgroundColor:"#fec107" };
       },
+      style: () => {
+        return { fontWeight: "bold",padding: "5px"  };
+      },
       formatter: (rowContent, row) => {
         return (
           <div>
             <Link to={"../cabang/" + row.KantorID}>
-              <Button  color="warning" className="mr-2">
+              <Button  color="warning" className="mr-2" size="sm">
                 <FontAwesomeIcon icon={faEdit} />
               </Button>
             </Link>
 
-            <Button  color="warning" className="mr-2" onClick={() => handleClick(props.dispatch, row.KantorID)}>
+            <Button  color="warning" className="mr-2" size='sm' onClick={() => handleClick(props.dispatch, row.KantorID)}>
               <FontAwesomeIcon icon={faTrash} /> 
             </Button>
           </div>
@@ -141,7 +144,7 @@ const CabangComponent = (props) => {
 
               <BootstrapTable
                 {...props.baseProps}
-                pagination={paginationFactory()}
+                pagination={paginationFactory({sizePerPage:'15'})}
               />
               </Card>
             </div>

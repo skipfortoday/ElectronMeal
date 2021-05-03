@@ -64,7 +64,7 @@ const KantinComponent = (props) => {
         return { width: "75px" , backgroundColor:"#fec107" };
       },
       style: () => {
-        return { fontWeight : "bold" };
+        return { fontWeight: "bold",padding: "5px"  };
       },
     },
     {
@@ -75,7 +75,7 @@ const KantinComponent = (props) => {
         return { width: "100px", backgroundColor:"#fec107" };
       },
       style: () => {
-        return { fontWeight : "bold" };
+        return { fontWeight: "bold",padding: "5px"  };
       },
     },
     {
@@ -86,9 +86,8 @@ const KantinComponent = (props) => {
         return { width: "200px", backgroundColor:"#fec107" };
       },
       style: () => {
-        return { fontWeight : "bold" };
+        return { fontWeight: "bold",padding: "5px"  };
       },
-      
     },
     {
       dataField: "link",
@@ -96,17 +95,20 @@ const KantinComponent = (props) => {
       headerStyle: () => {
         return { width: "40px", backgroundColor:"#fec107" };
       },
+      style: () => {
+        return { fontWeight: "bold",padding: "5px"  };
+      },
       formatter: (rowContent, row) => {
         return (
           <div>
             <Link to={"../Kantin/" + row.SNMesin}>
-              <Button  color="warning" className="mr-2">
+              <Button  color="warning" className="mr-2" size='sm'>
                 <FontAwesomeIcon icon={faEdit} />
               </Button>
             </Link>
 
             <Link to={"/Kantin#"}>
-            <Button  color="warning" className="mr-2" onClick={() => handleClick(props.dispatch, row.SNMesin)}>
+            <Button  color="warning" className="mr-2" size='sm' onClick={() => handleClick(props.dispatch, row.SNMesin)}>
               <FontAwesomeIcon icon={faTrash} /> 
             </Button>
             </Link>
@@ -143,7 +145,7 @@ const KantinComponent = (props) => {
 
               <BootstrapTable
                 {...props.baseProps}
-                pagination={paginationFactory()}
+                pagination={paginationFactory({sizePerPage:'15'})}
               />
               </Card>
             </div>

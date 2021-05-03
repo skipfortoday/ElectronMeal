@@ -20,7 +20,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import swal from "sweetalert";
 import {
-  deleteUser,
+  deleteUser, getUsersList,
 } from "../actions/userAction";
 
 const { SearchBar } = Search;
@@ -36,8 +36,7 @@ const handleClick = (dispatch, ID) => {
       dispatch(deleteUser(ID));
       swal("Data User Sukses dihapus", {
         icon: "success",
-      });
-      window.location.reload();
+      }).then(()=>{dispatch(getUsersList())})
     } else {
       swal("Data gagal dihapus");
     }
@@ -69,7 +68,7 @@ const TableComponent = (props) => {
         return { width: "10%", backgroundColor: "#fec107" };
       },
       style: () => {
-        return { fontWeight: "bold" };
+        return { fontWeight: "bold" , padding: "5px" };
       },
     },
     {
@@ -80,8 +79,8 @@ const TableComponent = (props) => {
         return { width: "10%", backgroundColor: "#fec107" };
       },
       style: () => {
-        return { fontWeight: "bold" };
-      },
+        return { fontWeight: "bold",padding: "5px"};
+      }
     },
     {
       dataField: "Nama",
@@ -91,7 +90,7 @@ const TableComponent = (props) => {
         return { width: "15%", backgroundColor: "#fec107" };
       },
       style: () => {
-        return { fontWeight: "bold" };
+        return { fontWeight: "bold" ,padding: "5px"};
       },
     },
     {
@@ -102,7 +101,7 @@ const TableComponent = (props) => {
         return { width: "15%", backgroundColor: "#fec107" };
       },
       style: () => {
-        return { fontWeight: "bold"  };
+        return { fontWeight: "bold",padding: "5px"};
       },
     },
     {
@@ -113,7 +112,7 @@ const TableComponent = (props) => {
         return { width: "15%", backgroundColor: "#fec107" };
       },
       style: () => {
-        return { fontWeight: "bold"  };
+        return { fontWeight: "bold",padding: "5px"  };
       },
     },
     {
@@ -124,7 +123,7 @@ const TableComponent = (props) => {
         return { width: "10%", backgroundColor: "#fec107" };
       },
       style: () => {
-        return { fontWeight: "bold"  };
+        return { fontWeight: "bold",padding: "5px"  };
       },
     },
 
@@ -134,12 +133,15 @@ const TableComponent = (props) => {
       headerStyle: () => {
         return { width: "10%", backgroundColor: "#fec107" };
       },
+      style: () => {
+        return { fontWeight: "bold",padding: "5px"};
+      },
       formatter: (rowContent, row) => {
         return (
           <div>
 
             <Link to={"edit/" + row.PIN}>
-              <Button color="warning" className="mr-2">
+              <Button color="warning" className="mr-2" size="sm">
                 <FontAwesomeIcon icon={faEdit} />
               </Button>
             </Link>
@@ -147,6 +149,7 @@ const TableComponent = (props) => {
               color="warning"
               className="mr-2"
               onClick={() => handleClick(props.dispatch, row.PIN)}
+              size="sm"
             >
               <FontAwesomeIcon icon={faTrash} />
             </Button>
@@ -164,7 +167,7 @@ const TableComponent = (props) => {
           keyField="UserID"
           data={props.getUsersList}
           columns={columns}
-          rowStyle={{ fontWeight: "bold",  }}
+          style={{ fontWeight: "bold",padding: "2px"}}
           defaultSorted={defaultSorted}
           search
         >
@@ -192,7 +195,7 @@ const TableComponent = (props) => {
 
                 <BootstrapTable
                   {...props.baseProps}
-                  pagination={paginationFactory()}
+                  pagination={paginationFactory({sizePerPage:'15'})}
                 />
               </Card>
             </div>

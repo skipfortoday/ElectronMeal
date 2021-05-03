@@ -8,6 +8,7 @@ import swal from "sweetalert";
 import NavbarComponent from "../components/NavbarComponent";
 import { getOptKantor, getOptDepartemen } from "../actions/optAction";
 import { Redirect } from "react-router-dom";
+import { reset } from "redux-form";
 
 const mapStateToProps = (state) => {
   return {
@@ -40,7 +41,7 @@ class CreateUserContainer extends Component {
           "User " + this.props.getResponDataUser.Nama + " Created!",
           " NIP : " + this.props.getResponDataUser.NIP,
           "success"
-        );
+        );this.props.dispatch(reset('formCreateUser'))
       }
     }
     return (

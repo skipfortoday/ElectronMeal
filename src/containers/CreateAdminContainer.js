@@ -7,6 +7,7 @@ import swal from "sweetalert";
 import NavbarComponent from "../components/NavbarComponent";
 import {Redirect} from "react-router-dom";
 import BackAdminComponent from "../components/BackAdminComponent";
+import { reset } from "redux-form";
 
 
 const mapStateToProps = (state) => {
@@ -40,7 +41,7 @@ class CreateAdminContainer extends Component {
             " , Tgl : " +
             this.props.getResponDataAdmin.TanggalCreate,
           "success"
-        );
+        );this.props.dispatch(reset('formCreateAdmin'))
       }
     }
     return (
