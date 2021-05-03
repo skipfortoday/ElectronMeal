@@ -110,6 +110,7 @@ class FormComponent extends Component {
               <Field
                 type="text"
                 name="PIN"
+                readOnly={this.props.edit}
                 component={renderField}
                 label="PIN  :"
               />

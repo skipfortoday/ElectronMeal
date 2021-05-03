@@ -4,7 +4,6 @@ import HomeContainer from "./containers/HomeContainer";
 import CreateUserContainer from "./containers/CreateUserContainer";
 import EditUserContainer from "./containers/EditUserContainer";
 import CabangContainer from "./containers/CabangContainer";
-import EditCabangContainer from "./containers/EditCabangContainer"
 import LaporanDetailContainer from "./containers/LaporanDetailContainer";
 import LoginContainer from "./containers/LoginContainer";
 import LandingPageContainer from "./containers/LandingPageContainer";
@@ -12,10 +11,8 @@ import AdminContainer from "./containers/AdminContainer";
 import CreateAdminContainer from "./containers/CreateAdminContainer";
 import EditAdminContainer from "./containers/EditAdminContainer";
 import ListLaporanContainer from "./containers/ListLaporanContainer";
-import EditDepartemenContainer from "./containers/EditDepartemenContainer";
 import DepartemenContainer from "./containers/DepartemenContainer";
 import KantinContainer from "./containers/KantinContainer";
-import EditKantinContainer from "./containers/EditKantinContainer";
 import LaporanPerhariContainer from "./containers/LaporanPerhariContainer";
 import LapDetPerhariContainer from "./containers/LapDetPerhariContainer";
 import LapDetPerhariContainer2 from "./containers/LapDetPerhariContainer2";
@@ -88,14 +85,13 @@ function App () {
           <Route path="/laporandetailperhari2/:UserID/:Tanggal" exact component={LapDetPerhariContainer2} />
 
           <Route path="/cabang" exact component={CabangContainer} />
-          <Route path="/cabang/:KodeCabang" exact component={EditCabangContainer} />
-
+          <Route path="/cabang/:KodeCabang" exact component={CabangContainer} />
 
           <Route path="/departemen" exact component={DepartemenContainer} />
-          <Route path="/departemen/:DepartemenID" exact component={EditDepartemenContainer} />
+          <Route path="/departemen/:DepartemenID" exact component={DepartemenContainer} />
 
           <Route path="/kantin" exact component={KantinContainer} />
-          <Route path="/kantin/:SNMesin" exact component={EditKantinContainer} />
+          <Route path="/kantin/:SNMesin" exact component={KantinContainer} />
 
           <Route path="/jadwal/:ID" exact component={JadwalContainer} />
 

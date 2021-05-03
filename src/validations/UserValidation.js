@@ -27,8 +27,12 @@ const UserValidation = (values) => {
     errors.PackMeal = "Akses harus diisi";
   } 
 
-  if (!values.Departemen || values.Departemen === "") {
-    errors.Departemen = "Departemen ID harus diisi";
+  if (!values.Departemen || values.Departemen.value === undefined) {
+    errors.Departemen = "Departemen harus diisi";
+  }
+
+  if (!values.Kantor || values.Kantor.value === undefined) {
+    errors.Kantor = "Kantor harus diisi";
   }
 
 

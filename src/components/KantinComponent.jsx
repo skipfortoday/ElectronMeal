@@ -11,7 +11,7 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import swal from 'sweetalert';
-import { deleteKantin } from "../actions/KantinAction";
+import { deleteDataKantin, deleteKantin, getKantinList } from "../actions/KantinAction";
 
 const { SearchBar } = Search;
 
@@ -28,7 +28,10 @@ const handleClick = (dispatch, SNMesin) => {
       dispatch(deleteKantin(SNMesin))
       swal("Data Kantin Sukses dihapus", {
         icon: "success",
-      });window.location.reload();
+      }).then(() => {
+        dispatch(getKantinList())
+        dispatch(deleteDataKantin())
+      });
     } else {
       swal("Data gagal dihapus");
     }
@@ -96,11 +99,11 @@ const KantinComponent = (props) => {
       formatter: (rowContent, row) => {
         return (
           <div>
-            <a href={"../Kantin/" + row.SNMesin}>
+            <Link to={"../Kantin/" + row.SNMesin}>
               <Button  color="warning" className="mr-2">
                 <FontAwesomeIcon icon={faEdit} />
               </Button>
-            </a>
+            </Link>
 
             <Link to={"/Kantin#"}>
             <Button  color="warning" className="mr-2" onClick={() => handleClick(props.dispatch, row.SNMesin)}>

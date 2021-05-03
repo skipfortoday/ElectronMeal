@@ -67,7 +67,7 @@ class FormCabangComponent extends Component {
                 name="KantorID"
                 disabled
                 component={renderField}
-                label="Kode Cabang :"
+                label="Kantor ID :"
               />
             </FormGroup>
           </Col>

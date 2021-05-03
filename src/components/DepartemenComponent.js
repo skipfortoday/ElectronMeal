@@ -11,7 +11,7 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import swal from 'sweetalert';
-import { deleteDepartemen } from "../actions/DepartemenAction";
+import { deleteDataDepartemen, deleteDepartemen, getDepartemenList } from "../actions/DepartemenAction";
 
 const { SearchBar } = Search;
 
@@ -28,7 +28,10 @@ const handleClick = (dispatch, DepartemenID) => {
       dispatch(deleteDepartemen(DepartemenID))
       swal("Data Departemen Sukses dihapus", {
         icon: "success",
-      });window.location.reload();
+      }).then(() => {
+        dispatch(getDepartemenList())
+        dispatch(deleteDataDepartemen())
+      });
     } else {
       swal("Data gagal dihapus");
     }
@@ -96,11 +99,11 @@ const DepartemenComponent = (props) => {
       formatter: (rowContent, row) => {
         return (
           <div>
-            <a href={"../Departemen/" + row.DepartemenID}>
+            <Link to={"../Departemen/" + row.DepartemenID}>
               <Button  color="warning" className="mr-2">
                 <FontAwesomeIcon icon={faEdit} />
               </Button>
-            </a>
+            </Link>
 
             <Link to={"/Departemen#"}>
             <Button  color="warning" className="mr-2" onClick={() => handleClick(props.dispatch, row.DepartemenID)}>

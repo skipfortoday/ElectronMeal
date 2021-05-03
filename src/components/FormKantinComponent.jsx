@@ -57,6 +57,7 @@ class FormKantinComponent extends Component {
           <Col md={3}>
             <FormGroup>
               <Field
+                readOnly={this.props.dis}
                 type="text"
                 name="SNMesin"
                 component={renderField}

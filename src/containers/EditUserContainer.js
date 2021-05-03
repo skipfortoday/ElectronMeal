@@ -3,7 +3,7 @@ import { Container } from "reactstrap";
 import BackComponent from "../components/BackComponent";
 import { connect } from "react-redux";
 import FormComponent from "../components/FormComponent";
-import { getUserDetail, putUserUpdate } from "../actions/userAction";
+import { deleteDataUser, getUserDetail, putUserUpdate } from "../actions/userAction";
 import { getOptDepartemen,  getOptKantor } from "../actions/optAction";
 import swal from "sweetalert";
 import NavbarComponent from "../components/NavbarComponent";
@@ -24,6 +24,13 @@ class EditUserContainer extends Component {
     this.props.dispatch(getUserDetail(this.props.match.params.UserID));
   }
 
+  componentDidUpdate() {
+    this.props.dispatch(getOptKantor());
+    this.props.dispatch(getOptDepartemen());
+    this.props.dispatch(getUserDetail(this.props.match.params.UserID));
+    this.props.dispatch(deleteDataUser());
+  }
+
   handleSubmit(data) {
     this.props.dispatch(putUserUpdate(data, this.props.match.params.UserID));
   }
@@ -42,7 +49,7 @@ class EditUserContainer extends Component {
           "User " + this.props.getResponDataUser.Nama + " Updated!",
           " NIP : " + this.props.getResponDataUser.NIP,
           "success" 
-        );window.location.reload();
+        );
       }
     }
     return (
@@ -51,7 +58,7 @@ class EditUserContainer extends Component {
         <div style={{ backgroundColor: "#fec107" }}>
           <BackComponent />
           <Container>
-            <FormComponent onSubmit={(data) => this.handleSubmit(data)} />
+            <FormComponent onSubmit={(data) => this.handleSubmit(data)} edit={true} />
           </Container>
         </div>
       </div>

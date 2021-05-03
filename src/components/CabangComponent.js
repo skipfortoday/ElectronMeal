@@ -11,7 +11,7 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import swal from 'sweetalert';
-import { deleteCabang } from "../actions/cabangAction";
+import { deleteCabang, deleteDataCabang, getCabangList } from "../actions/cabangAction";
 
 const { SearchBar } = Search;
 
@@ -28,7 +28,10 @@ const handleClick = (dispatch, KodeCabang) => {
       dispatch(deleteCabang(KodeCabang))
       swal("Data Cabang Sukses dihapus", {
         icon: "success",
-      });window.location.reload();
+      }).then(() => {
+        dispatch(getCabangList())
+        dispatch(deleteDataCabang())
+      });
     } else {
       swal("Data gagal dihapus");
     }
@@ -96,17 +99,15 @@ const CabangComponent = (props) => {
       formatter: (rowContent, row) => {
         return (
           <div>
-            <a href={"../cabang/" + row.KantorID}>
+            <Link to={"../cabang/" + row.KantorID}>
               <Button  color="warning" className="mr-2">
                 <FontAwesomeIcon icon={faEdit} />
               </Button>
-            </a>
+            </Link>
 
-            <Link to={"/cabang#"}>
             <Button  color="warning" className="mr-2" onClick={() => handleClick(props.dispatch, row.KantorID)}>
               <FontAwesomeIcon icon={faTrash} /> 
             </Button>
-            </Link>
           </div>
         );
       },

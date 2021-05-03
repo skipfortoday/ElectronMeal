@@ -19,6 +19,7 @@
     "react-bootstrap-table-next": "^4.0.1",
     "react-bootstrap-table2-paginator": "^2.1.2",
     "react-bootstrap-table2-toolkit": "^2.1.2",
+    "react-data-export": "^0.6.0",
     "react-dom": "^16.14.0",
     "react-export-excel": "^0.5.3",
     "react-redux": "^7.2.0",
