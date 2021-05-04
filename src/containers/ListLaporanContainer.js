@@ -7,12 +7,21 @@ import { getOptKantin } from "../actions/optAction";
 import {Redirect} from "react-router-dom";
 import swal from "sweetalert";
 import PrintButton from "../components/PrintButton";
-import { Container, Row } from "reactstrap";
+import { Container, Row, Spinner } from "reactstrap";
 import NamaCabangLaporan from "../components/NamaCabangLaporan";
 import RekapLaporanPertanggal from "../components/RekapLaporanPertanggal";
 import RekapLeft from "../components/RekapLeft";
 import LaporanDetail from "../components/LaporanDetail";
-import { getLaporanDetail, getLaporanRekap } from "../actions/laporanAction";
+import { getLaporanDetail, getLaporanRekap, resetLaporan, setLoading } from "../actions/laporanAction";
+
+const mapStateToProps = (state) => {
+  return {
+    getLaporanDetail: state.Laporan.getLaporanDetail,
+    getLaporanRekap: state.Laporan.getLaporanRekap,
+    errorLaporanDetail: state.Laporan.errorLaporanDetail,
+    isLoading:state.Laporan.isLoading
+  };
+};
 
 
 class ListLaporanContainer extends Component {
@@ -22,8 +31,8 @@ class ListLaporanContainer extends Component {
   }
 
   handleSubmit(data) {
-    console.log(data)
-    // this.props.dispatch(delet());
+    // console.log(data)
+    this.props.dispatch(resetLaporan());
     this.props.dispatch(
       getLaporanDetail(
         data.Kantin.value,
@@ -38,7 +47,7 @@ class ListLaporanContainer extends Component {
         data.TglAkhir
       )
     );
-    // this.props.dispatch(setLoading(true));
+    this.props.dispatch(setLoading(true));
   }
 
   render() {
@@ -64,7 +73,12 @@ class ListLaporanContainer extends Component {
             <td width="20%"></td>
           </tr>
         </div>
-          
+        {this.props.isLoading ? (
+          <div style={{textAlign:"center", padding:"50px 0px"}}>
+            <Spinner />
+          </div>
+        ) : ("") }
+         {this.props.getLaporanRekap ? (
         <Container>
         <Row className="page-header">
           <NamaCabangLaporan />
@@ -75,9 +89,12 @@ class ListLaporanContainer extends Component {
           <RekapLeft />
         </Row>
         </Container>
+        ) : (
+          ""
+        )}
       </div>
     );
   }
 }
 
-export default connect()(ListLaporanContainer);
+export default connect(mapStateToProps, null)(ListLaporanContainer);

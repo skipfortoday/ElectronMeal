@@ -7,10 +7,29 @@ export const GET_LAPORAN_REKAP = "GET_LAPORAN_REKAP";
 export const GET_LAPORAN_RPERHARI = "GET_LAPORAN_RPERHARI";
 export const GET_LAPORAN_PERHARI2 = "GET_LAPORAN_PERHARI2";
 export const GET_LAPORAN_RPERHARI2 = "GET_LAPORAN_RPERHARI2";
+export const IS_LOADING = "IS_LOADING";
+export const RESET_LAPORAN = "RESET_LAPORAN";
 
 
 
+export const setLoading = (val) => {
+  return (dispatch) => {
+    dispatch({
+      type:IS_LOADING,
+      payload:{
+        data:val
+      }
+    })
+  }
+}
 
+export const resetLaporan = () => {
+  return (dispatch) => {
+    dispatch({
+      type: RESET_LAPORAN,
+    });
+  }
+}
 
 
 export const getLaporanDetail = (UserID,TglAwal,TglAkhir) => {

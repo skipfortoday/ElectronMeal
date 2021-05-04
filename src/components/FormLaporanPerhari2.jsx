@@ -8,9 +8,13 @@ import {
   Label,
   Input,
   Row,
+  Button,
   Container,
 } from "reactstrap";
 import SelectValidation from "../validations/SelectValidation";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+
 
 const renderField = ({
   input,
@@ -78,7 +82,7 @@ const renderField2 = ({
            //onBlur={() => input.onBlur()}
         />
         {touched &&
-          ((error && <p style={{ color: "red" }}>{error}</p>) ||
+          ((error && <p style={{ color: "brown" }}>{error}</p>) ||
             (warning && <p style={{ color: "brown" }}>{warning}</p>))}
       </Col>
     </Row>
@@ -107,7 +111,7 @@ class FormLaporanPerhari2 extends Component {
             <Row>
             
 
-            <Col md={6}>
+            <Col md={5}>
               <FormGroup>
                 <Field
                   type="date"
@@ -130,7 +134,7 @@ class FormLaporanPerhari2 extends Component {
             </Col> */}
 
 
-            <Col md={6}>
+            <Col md={4}>
               <FormGroup>
                 <Field
                   name="Kantin"
@@ -138,6 +142,22 @@ class FormLaporanPerhari2 extends Component {
                   label="Kantin :"
                   options={this.props.getOptKantin}
                 />
+              </FormGroup>
+            </Col>
+            <Col md={3}>
+              <FormGroup style={{ marginTop: "37px" }}>
+              <Button
+                      onClick={this.props.handleSubmit(values =>
+                        this.props.onSubmit({
+                          ...values,
+                          type: 'view'
+                        }))}
+                      color="dark"
+                      type="submit"
+                      disabled={this.props.submitting}
+                    >
+                      <FontAwesomeIcon icon={faSearch} /> View
+                    </Button>
               </FormGroup>
             </Col>
             </Row>

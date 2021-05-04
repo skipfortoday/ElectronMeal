@@ -14,6 +14,8 @@ class ListLaporanContainer extends Component {
     this.props.dispatch(getOptDepartemen());
   }
 
+  
+
   render() {
     let ambil = JSON.parse(localStorage.getItem('user'));
     if (!localStorage.getItem('user')|| ambil.Login === "false") {

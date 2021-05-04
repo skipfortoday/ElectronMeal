@@ -8,6 +8,10 @@ const SelectValidation = (values) => {
     if (!values.TglAkhir|| values.TglAkhir=== "") {
       errors.TglAkhir = "TglAkhir harus diisi";
     }
+
+    if (!values.Tanggal|| values.Tanggal=== "") {
+      errors.Tanggal = "Tanggal harus diisi";
+    }
   
     if (!values.TglAwal|| values.TglAwal=== "") {
       errors.TglAwal = "TglAwal harus diisi";

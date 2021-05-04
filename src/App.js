@@ -4,7 +4,6 @@ import HomeContainer from "./containers/HomeContainer";
 import CreateUserContainer from "./containers/CreateUserContainer";
 import EditUserContainer from "./containers/EditUserContainer";
 import CabangContainer from "./containers/CabangContainer";
-import LaporanDetailContainer from "./containers/LaporanDetailContainer";
 import LoginContainer from "./containers/LoginContainer";
 import LandingPageContainer from "./containers/LandingPageContainer";
 import AdminContainer from "./containers/AdminContainer";
@@ -15,7 +14,6 @@ import DepartemenContainer from "./containers/DepartemenContainer";
 import KantinContainer from "./containers/KantinContainer";
 import LaporanPerhariContainer from "./containers/LaporanPerhariContainer";
 import LapDetPerhariContainer from "./containers/LapDetPerhariContainer";
-import LapDetPerhariContainer2 from "./containers/LapDetPerhariContainer2";
 import JadwalContainer from "./containers/JadwalContainer";
 import LaporanPerhariContainer2 from "./containers/LaporanPerhariContainer2";
 
@@ -76,13 +74,11 @@ function App () {
           <Route path="/edit/:UserID" exact component={EditUserContainer} />
 
           <Route path="/laporan" exact component={ListLaporanContainer} />
-          <Route path="/laporandetail/:UserID/:TglAwal/:TglAkhir" exact component={LaporanDetailContainer} />
 
           <Route path="/laporanperhari" exact component={LaporanPerhariContainer} />
           <Route path="/laporandetailperhari/:UserID/:Tanggal/:Kantor" exact component={LapDetPerhariContainer} />
 
           <Route path="/laporanperhari2" exact component={LaporanPerhariContainer2} />
-          <Route path="/laporandetailperhari2/:UserID/:Tanggal" exact component={LapDetPerhariContainer2} />
 
           <Route path="/cabang" exact component={CabangContainer} />
           <Route path="/cabang/:KodeCabang" exact component={CabangContainer} />

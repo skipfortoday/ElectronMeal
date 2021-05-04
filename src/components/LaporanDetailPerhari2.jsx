@@ -1,7 +1,6 @@
 
 import React from "react";
 import BootstrapTable from "react-bootstrap-table-next";
-import paginationFactory from "react-bootstrap-table2-paginator";
 import { connect } from "react-redux"
 import {   Spinner } from "reactstrap";
 
@@ -148,7 +147,6 @@ TotalKeluar: null*/
       columns={ columns } 
       headerClasses='page-header-space'
       rowStyle={ { lineHeight : '75%' , fontFamily: 'Arial' , fontWeight: "bold" , fontSize:"14px", textAlign:'center' } } 
-      pagination={paginationFactory(options) }
       // defaultSorted= { defaultSorted }
     />
         </div>

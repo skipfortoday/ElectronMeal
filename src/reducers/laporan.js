@@ -6,6 +6,8 @@ import {
     GET_LAPORAN_RPERHARI,
     GET_LAPORAN_PERHARI2,
     GET_LAPORAN_RPERHARI2,
+    IS_LOADING,
+    RESET_LAPORAN,
   } from "../actions/laporanAction";
   
   let initialState = {
@@ -23,17 +25,37 @@ import {
     errorLaporanRekap:false,
     getResponDataLaporan: false,
     errorResponDataLaporan: false,
+    isLoading:false,
 
   };
   
   const Laporan = (state = initialState, action) => {
     switch (action.type) {
+
+        case IS_LOADING:
+          return {
+            ...state,
+            isLoading: action.payload.data
+          }
+
+      case RESET_LAPORAN :
+      return {
+        ...state,
+        getLaporanDetail: false,
+        getLaporanPerhari: false,
+        getLaporanRperhari: false,
+        getLaporanPerhari2: false,
+        getLaporanRperhari2: false,
+        getLaporanRekap:false,
+        getResponDataLaporan: false,
+      };
   
       case GET_LAPORAN_DETAIL:
         return {
           ...state,
           getLaporanDetail: action.payload.data,
           errorLaporanDetail: action.payload.errorMessage,
+          isLoading:false,
         };
 
         case GET_LAPORAN_REKAP:
@@ -48,6 +70,7 @@ import {
               ...state,
               getLaporanPerhari: action.payload.data,
               errorLaporanPerhari: action.payload.errorMessage,
+              isLoading:false,
             };
 
             case GET_LAPORAN_RPERHARI:
@@ -62,6 +85,7 @@ import {
               ...state,
               getLaporanPerhari2: action.payload.data,
               errorLaporanPerhari2: action.payload.errorMessage,
+              isLoading:false,
             };
 
             case GET_LAPORAN_RPERHARI2:
