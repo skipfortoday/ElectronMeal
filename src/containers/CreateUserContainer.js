@@ -36,13 +36,15 @@ class CreateUserContainer extends Component {
     if (this.props.getResponDataUser || this.props.errorResponDataUser) {
       if (this.props.errorResponDataUser) {
         swal("Failed!", this.props.errorResponDataUser, "error");
-      } else {
+      } else if(this.props.getResponDataUser.sqlMessage){
+        swal("Failed!", this.props.getResponDataUser.sqlMessage, "error");
+      }else {
         swal(
-          "User " + this.props.getResponDataUser.Nama + " Created!",
-          " NIP : " + this.props.getResponDataUser.NIP,
+          "User  Created!",
+          " ",
           "success"
-        );this.props.dispatch(reset('formCreateUser'))
-      }
+        );
+      }this.props.dispatch(reset('formCreateUser'))
     }
     return (
       <div>

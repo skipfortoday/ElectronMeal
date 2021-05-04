@@ -8,6 +8,7 @@ export const GET_LAPORAN_RPERHARI = "GET_LAPORAN_RPERHARI";
 export const GET_LAPORAN_PERHARI2 = "GET_LAPORAN_PERHARI2";
 export const GET_LAPORAN_RPERHARI2 = "GET_LAPORAN_RPERHARI2";
 export const IS_LOADING = "IS_LOADING";
+export const IS_INITIAL = "IS_INITIAL";
 export const RESET_LAPORAN = "RESET_LAPORAN";
 
 
@@ -22,6 +23,18 @@ export const setLoading = (val) => {
     })
   }
 }
+
+export const isInitial = (value) => {
+  return (dispatch) => {
+    dispatch({
+      type:IS_INITIAL,
+      payload:{
+        data:value
+      }
+    })
+  }
+}
+
 
 export const resetLaporan = () => {
   return (dispatch) => {

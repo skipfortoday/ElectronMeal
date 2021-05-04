@@ -55,28 +55,7 @@ const LaporanDetail = (props) => {
     
   ];
 
-  
 
-  // const defaultSorted = [{
-  //   dataField: 'Tanggal',
-  //   order: 'asc'
-  // }];
-  
-
-  const options = {
-    firstPageText: 'OK',
-    sizePerPageList: [{
-      text: 'OK', value: 100
-    }] // A numeric array is also available. the purpose of above example is custom the text
-  };
-  
-  /*DatangID: 105
-JamKeluar: "11:31:00"
-JamKembali: "12:31:00"
-KeluarID: 1
-Keterangan: "undefined"
-KeteranganKembali: null
-TotalKeluar: null*/
 
 
   return (

@@ -3,11 +3,11 @@ import { connect } from "react-redux";
 import {
   getLaporanPerhari2,
   getLaporanRperhari2,
+  isInitial,
   resetLaporan,
   setLoading,
 } from "../actions/laporanAction";
 import NavbarComponent from "../components/NavbarComponent";
-import LengkapiAbsenButton4 from "../components/LengkapiAbsenButton4";
 import {  getOptKantin } from "../actions/optAction";
 import FormLaporanPerhari2 from "../components/FormLaporanPerhari2";
 import {Redirect} from "react-router-dom";
@@ -25,13 +25,15 @@ const mapStateToProps = (state) => {
     errorLaporanDetail2: state.Laporan.errorLaporanDetail2,
     getLaporanPerhari2: state.Laporan.getLaporanPerhari2,
     getLaporanRperhari2: state.Laporan.getLaporanRperhari2,
-    isLoading:state.Laporan.isLoading
+    isLoading:state.Laporan.isLoading,
+    isInitial:state.Laporan.isInitial
   };
 };
 
 class LaporanPerhari2 extends Component {
   componentDidMount() {
     this.props.dispatch(getOptKantin());
+    this.props.dispatch(isInitial());
   }
 
   handleSubmit(data) {
@@ -77,12 +79,14 @@ class LaporanPerhari2 extends Component {
           </td>
         </tr>
       </div>
+      {this.props.isInitial ? ( 
+      <div>
       {this.props.isLoading ? (
           <div style={{textAlign:"center", padding:"50px 0px"}}>
             <Spinner />
           </div>
         ) : ("") }
-        {this.props.getLaporanRperhari2.lenght ? (
+        {this.props.getLaporanPerhari2[0] ? (
       <Container>
       <Row className="page-header">
         <NamaCabangLaporan />
@@ -97,8 +101,8 @@ class LaporanPerhari2 extends Component {
         <div style={{textAlign:"center", padding:"30px 0px"}}>
          <h4>Data Kosong</h4> 
       </div>
-        
       )}
+       </div>):("")}
     </div>
     );
   }

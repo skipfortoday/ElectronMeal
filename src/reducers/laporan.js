@@ -8,6 +8,7 @@ import {
     GET_LAPORAN_RPERHARI2,
     IS_LOADING,
     RESET_LAPORAN,
+    IS_INITIAL,
   } from "../actions/laporanAction";
   
   let initialState = {
@@ -26,17 +27,24 @@ import {
     getResponDataLaporan: false,
     errorResponDataLaporan: false,
     isLoading:false,
+    isInitial:false,
 
   };
   
   const Laporan = (state = initialState, action) => {
     switch (action.type) {
 
-        case IS_LOADING:
+      case IS_LOADING:
           return {
             ...state,
             isLoading: action.payload.data
           }
+
+          case IS_INITIAL:
+            return {
+              ...state,
+              isInitial: false
+            }  
 
       case RESET_LAPORAN :
       return {
@@ -56,6 +64,7 @@ import {
           getLaporanDetail: action.payload.data,
           errorLaporanDetail: action.payload.errorMessage,
           isLoading:false,
+          isInitial:true,
         };
 
         case GET_LAPORAN_REKAP:
@@ -71,6 +80,7 @@ import {
               getLaporanPerhari: action.payload.data,
               errorLaporanPerhari: action.payload.errorMessage,
               isLoading:false,
+              isInitial:true,
             };
 
             case GET_LAPORAN_RPERHARI:
@@ -86,6 +96,7 @@ import {
               getLaporanPerhari2: action.payload.data,
               errorLaporanPerhari2: action.payload.errorMessage,
               isLoading:false,
+              isInitial:true,
             };
 
             case GET_LAPORAN_RPERHARI2:

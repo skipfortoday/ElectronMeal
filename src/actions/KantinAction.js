@@ -69,7 +69,6 @@ export const postKantinCreate = (data) => {
       )
       .then(function (response) {
         console.log(response);
-        
         dispatch({
           type: POST_KANTIN_CREATE,
           payload: {

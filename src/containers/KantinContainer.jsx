@@ -51,24 +51,30 @@ class KantinContainer extends Component {
     if (this.props.getResponDataKantin || this.props.errorResponDataKantin) {
       if (this.props.errorResponDataKantin) {
         swal("Failed!", this.props.errorResponDataKantin, "error");
-      } else if (this.props.match.params.SNMesin){ 
+      } else if (this.props.getResponDataKantin.sqlMessage){ 
+        swal(
+          "Failed!",
+          "" +
+          this.props.getResponDataKantin.sqlMessage +
+            "  ",
+            "error" 
+        ); this.props.dispatch(deleteDataKantin());
+      } 
+      else if (this.props.match.params.SNMesin){ 
         swal(
           "Kantin Updated!",
-          "Nama Kantin: " +
-            this.props.getResponDataKantin.NamaKantin +
-            "  ",
+          "  ",
           "success" 
         ); this.props.dispatch(deleteDataKantin());
       } else {
         swal(
           "Kantin Created!",
-          "Nama Kantin: " +
-            this.props.getResponDataKantin.NamaKantin +
-            "  ",
+           "  ",
           "success" 
         ); this.props.dispatch(deleteDataKantin());
-            this.props.dispatch(reset('formCreateKantin')); 
+            
       }
+      this.props.dispatch(reset('formCreateKantin')); 
     }
     return (
       <div>
@@ -77,7 +83,7 @@ class KantinContainer extends Component {
           <Container>
             <Row>
               <Col md={10}>
-              <FormKantinComponent onSubmit={(data) => this.handleSubmit(data)} />
+              <FormKantinComponent onSubmit={(data) => this.handleSubmit(data)} dis={this.props.match.params.SNMesin ? (true): (false)} />
               </Col>
               <Col md={2}>
                 <Label>.</Label>

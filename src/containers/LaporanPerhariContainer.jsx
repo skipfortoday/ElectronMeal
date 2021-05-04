@@ -5,7 +5,7 @@ import {  getOptDepartemen, getOptKantin } from "../actions/optAction";
 import FormLaporanPerhari from "../components/FormLaporanPerhari";
 import {Redirect} from "react-router-dom";
 import swal from "sweetalert";
-import { getLaporanPerhari, getLaporanRperhari, resetLaporan, setLoading } from "../actions/laporanAction";
+import { getLaporanPerhari, getLaporanRperhari, isInitial, resetLaporan, setLoading } from "../actions/laporanAction";
 import PrintButton from "../components/PrintButton";
 import { Container, Row, Spinner } from "reactstrap";
 import NamaCabangLaporan from "../components/NamaCabangLaporan";
@@ -18,7 +18,8 @@ const mapStateToProps = (state) => {
     errorLaporanDetail2: state.Laporan.errorLaporanDetail2,
     getLaporanPerhari: state.Laporan.getLaporanPerhari,
     getLaporanRperhari: state.Laporan.getLaporanRperhari,
-    isLoading:state.Laporan.isLoading
+    isLoading:state.Laporan.isLoading,
+    isInitial:state.Laporan.isInitial
   };
 };
 
@@ -26,6 +27,7 @@ class ListLaporanContainer extends Component {
   componentDidMount() {
     this.props.dispatch(getOptKantin());
     this.props.dispatch(getOptDepartemen());
+    this.props.dispatch(isInitial());
   }
 
   handleSubmit(data) {
@@ -76,12 +78,14 @@ class ListLaporanContainer extends Component {
           </td>
         </tr>
       </div>
+      {this.props.isInitial ? ( 
+      <div>
       {this.props.isLoading ? (
           <div style={{textAlign:"center", padding:"50px 0px"}}>
             <Spinner />
           </div>
         ) : ("") }
-        {this.props.getLaporanPerhari.lenght ? (
+        {this.props.getLaporanPerhari[0] ? (
       <Container>
       <Row className="page-header">
         <NamaCabangLaporan />
@@ -97,6 +101,7 @@ class ListLaporanContainer extends Component {
           <h4>Data Kosong</h4> 
        </div>
         )}
+        </div>):("")}
     </div>
     );
   }

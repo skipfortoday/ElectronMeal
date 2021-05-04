@@ -78,7 +78,7 @@ class CabangContainer extends Component {
         <Container>
             <Row>
               <Col md={10}>
-              <FormCabangComponent onSubmit={(data) => this.handleSubmit(data)} />
+              <FormCabangComponent onSubmit={(data) => this.handleSubmit(data)}  />
               </Col>
               <Col md={2}>
                 <Label>.</Label>

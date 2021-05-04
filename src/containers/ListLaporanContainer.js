@@ -12,14 +12,15 @@ import NamaCabangLaporan from "../components/NamaCabangLaporan";
 import RekapLaporanPertanggal from "../components/RekapLaporanPertanggal";
 import RekapLeft from "../components/RekapLeft";
 import LaporanDetail from "../components/LaporanDetail";
-import { getLaporanDetail, getLaporanRekap, resetLaporan, setLoading } from "../actions/laporanAction";
+import { getLaporanDetail, getLaporanRekap, isInitial, resetLaporan, setLoading } from "../actions/laporanAction";
 
 const mapStateToProps = (state) => {
   return {
     getLaporanDetail: state.Laporan.getLaporanDetail,
     getLaporanRekap: state.Laporan.getLaporanRekap,
     errorLaporanDetail: state.Laporan.errorLaporanDetail,
-    isLoading:state.Laporan.isLoading
+    isLoading:state.Laporan.isLoading,
+    isInitial:state.Laporan.isInitial
   };
 };
 
@@ -28,6 +29,7 @@ class ListLaporanContainer extends Component {
   componentDidMount() {
     this.props.dispatch(getOptKantin());
     this.props.dispatch(getUsersList());
+    this.props.dispatch(isInitial());
   }
 
   handleSubmit(data) {
@@ -73,6 +75,8 @@ class ListLaporanContainer extends Component {
             <td width="20%"></td>
           </tr>
         </div>
+        {this.props.isInitial ? ( 
+      <div>
         {this.props.isLoading ? (
           <div style={{textAlign:"center", padding:"50px 0px"}}>
             <Spinner />
@@ -92,6 +96,7 @@ class ListLaporanContainer extends Component {
         ) : (
           ""
         )}
+        </div>):("")}
       </div>
     );
   }
