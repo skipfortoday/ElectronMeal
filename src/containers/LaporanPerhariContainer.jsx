@@ -1,12 +1,26 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import NavbarComponent from "../components/NavbarComponent";
-import LengkapiAbsenButton3 from "../components/LengkapiAbsenButton3";
 import {  getOptDepartemen, getOptKantin } from "../actions/optAction";
 import FormLaporanPerhari from "../components/FormLaporanPerhari";
 import {Redirect} from "react-router-dom";
 import swal from "sweetalert";
+import { getLaporanPerhari, getLaporanRperhari, resetLaporan, setLoading } from "../actions/laporanAction";
+import PrintButton from "../components/PrintButton";
+import { Container, Row, Spinner } from "reactstrap";
+import NamaCabangLaporan from "../components/NamaCabangLaporan";
+import RekapLaporan from "../components/RekapLaporan";
+import LaporanDetailPerhari from "../components/LaporanDetailPerhari";
+import RekapLeft3 from "../components/RekapLeft3";
 
+const mapStateToProps = (state) => {
+  return {
+    errorLaporanDetail2: state.Laporan.errorLaporanDetail2,
+    getLaporanPerhari: state.Laporan.getLaporanPerhari,
+    getLaporanRperhari: state.Laporan.getLaporanRperhari,
+    isLoading:state.Laporan.isLoading
+  };
+};
 
 class ListLaporanContainer extends Component {
   componentDidMount() {
@@ -14,6 +28,26 @@ class ListLaporanContainer extends Component {
     this.props.dispatch(getOptDepartemen());
   }
 
+  handleSubmit(data) {
+    console.log(data)
+    this.props.dispatch(resetLaporan());
+    this.props.dispatch(
+      getLaporanRperhari(
+       data.Kantin.value,
+       data.Tanggal,
+       data.Departemen.value
+      )
+    );
+    this.props.dispatch(
+      getLaporanPerhari(
+        data.Kantin.value,
+       data.Tanggal,
+       data.Departemen.value
+      )
+    );
+ 
+   this.props.dispatch(setLoading(true));
+ }
   
 
   render() {
@@ -25,28 +59,47 @@ class ListLaporanContainer extends Component {
     return (
       
       <div>
-        <NavbarComponent />
-        <div style={{ backgroundColor: "#fec107" }}>
-          <tr>
+      <NavbarComponent />
+      <div class="header-1" style={{ backgroundColor: "#fec107" }}>
+        <tr>
           <td width="400"></td>
-            <td>
-              <FormLaporanPerhari onSubmit={(data) => this.handleSubmit2(data)} />
-            </td>
-            <td width="50"></td>
-            <td>
-              <tr>
-                <td width="20">.</td>
-              </tr>
-              <tr>
-                <LengkapiAbsenButton3 />
-                
-              </tr>
-            </td>
-          </tr>
-        </div>
-        </div>
+          <td>
+            <FormLaporanPerhari onSubmit={(data) => this.handleSubmit(data)}/>
+          </td>
+          <td width="50"></td>
+          <td>
+            <tr>
+              .
+              <PrintButton /> 
+              
+            </tr>
+          </td>
+        </tr>
+      </div>
+      {this.props.isLoading ? (
+          <div style={{textAlign:"center", padding:"50px 0px"}}>
+            <Spinner />
+          </div>
+        ) : ("") }
+        {this.props.getLaporanPerhari.lenght ? (
+      <Container>
+      <Row className="page-header">
+        <NamaCabangLaporan />
+        <RekapLaporan />
+      </Row>
+      <Row>
+        <LaporanDetailPerhari />
+        <RekapLeft3 />
+      </Row>
+      </Container>
+         ) : (
+          <div style={{textAlign:"center", padding:"30px 0px"}}>
+          <h4>Data Kosong</h4> 
+       </div>
+        )}
+    </div>
     );
   }
 }
 
-export default connect()(ListLaporanContainer);
+export default connect(mapStateToProps,null)(ListLaporanContainer);

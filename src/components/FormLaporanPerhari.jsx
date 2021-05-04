@@ -8,9 +8,12 @@ import {
   Label,
   Input,
   Row,
+  Button,
   Container,
 } from "reactstrap";
 import SelectValidation from "../validations/SelectValidation";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 const renderField = ({
   input,
@@ -118,7 +121,7 @@ class FormLaporanPerhari extends Component {
               </FormGroup>
             </Col>
 
-            <Col md={4}>
+            <Col md={3}>
               <FormGroup>
                 <Field
                   name="Departemen"
@@ -130,7 +133,7 @@ class FormLaporanPerhari extends Component {
             </Col>
 
 
-            <Col md={4}>
+            <Col md={3}>
               <FormGroup>
                 <Field
                   name="Kantin"
@@ -138,6 +141,22 @@ class FormLaporanPerhari extends Component {
                   label="Kantin :"
                   options={this.props.getOptKantin}
                 />
+              </FormGroup>
+            </Col>
+            <Col md={2}>
+              <FormGroup style={{ marginTop: "37px" }}>
+              <Button
+                      onClick={this.props.handleSubmit(values =>
+                        this.props.onSubmit({
+                          ...values,
+                          type: 'view'
+                        }))}
+                      color="dark"
+                      type="submit"
+                      disabled={this.props.submitting}
+                    >
+                      <FontAwesomeIcon icon={faSearch} /> View
+                    </Button>
               </FormGroup>
             </Col>
             </Row>

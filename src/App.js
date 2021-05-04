@@ -13,7 +13,6 @@ import ListLaporanContainer from "./containers/ListLaporanContainer";
 import DepartemenContainer from "./containers/DepartemenContainer";
 import KantinContainer from "./containers/KantinContainer";
 import LaporanPerhariContainer from "./containers/LaporanPerhariContainer";
-import LapDetPerhariContainer from "./containers/LapDetPerhariContainer";
 import JadwalContainer from "./containers/JadwalContainer";
 import LaporanPerhariContainer2 from "./containers/LaporanPerhariContainer2";
 
@@ -74,10 +73,7 @@ function App () {
           <Route path="/edit/:UserID" exact component={EditUserContainer} />
 
           <Route path="/laporan" exact component={ListLaporanContainer} />
-
           <Route path="/laporanperhari" exact component={LaporanPerhariContainer} />
-          <Route path="/laporandetailperhari/:UserID/:Tanggal/:Kantor" exact component={LapDetPerhariContainer} />
-
           <Route path="/laporanperhari2" exact component={LaporanPerhariContainer2} />
 
           <Route path="/cabang" exact component={CabangContainer} />

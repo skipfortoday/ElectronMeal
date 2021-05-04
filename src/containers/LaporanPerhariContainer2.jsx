@@ -25,6 +25,7 @@ const mapStateToProps = (state) => {
     errorLaporanDetail2: state.Laporan.errorLaporanDetail2,
     getLaporanPerhari2: state.Laporan.getLaporanPerhari2,
     getLaporanRperhari2: state.Laporan.getLaporanRperhari2,
+    isLoading:state.Laporan.isLoading
   };
 };
 
@@ -81,7 +82,7 @@ class LaporanPerhari2 extends Component {
             <Spinner />
           </div>
         ) : ("") }
-        {this.props.getLaporanRperhari2 ? (
+        {this.props.getLaporanRperhari2.lenght ? (
       <Container>
       <Row className="page-header">
         <NamaCabangLaporan />
@@ -93,7 +94,10 @@ class LaporanPerhari2 extends Component {
       </Row>
       </Container>
        ) : (
-        ""
+        <div style={{textAlign:"center", padding:"30px 0px"}}>
+         <h4>Data Kosong</h4> 
+      </div>
+        
       )}
     </div>
     );
