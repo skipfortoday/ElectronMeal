@@ -42,6 +42,8 @@ node_modules/
 jspm_packages/
 .build
 build/
+dist/
+.dist
 
 # TypeScript v1 declaration files
 typings/
