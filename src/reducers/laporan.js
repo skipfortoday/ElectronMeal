@@ -9,9 +9,12 @@ import {
     IS_LOADING,
     RESET_LAPORAN,
     IS_INITIAL,
+    IS_EMPETY,
+    GET_CEK_DATA,
   } from "../actions/laporanAction";
   
   let initialState = {
+    isEmpety:true,
     getLaporanDetail: false,
     errorLaporanDetail: false,
     getLaporanPerhari: false,
@@ -26,9 +29,10 @@ import {
     errorLaporanRekap:false,
     getResponDataLaporan: false,
     errorResponDataLaporan: false,
+    getCekData:false,
+    errorCekData:false,
     isLoading:false,
     isInitial:false,
-
   };
   
   const Laporan = (state = initialState, action) => {
@@ -43,8 +47,17 @@ import {
           case IS_INITIAL:
             return {
               ...state,
-              isInitial: false
+              isInitial: action.payload.data,
+              isLoading: true
             }  
+
+            
+          case IS_EMPETY:
+            return {
+              ...state,
+              isEmpety: action.payload.data,
+            }  
+
 
       case RESET_LAPORAN :
       return {
@@ -73,6 +86,13 @@ import {
             getLaporanRekap: action.payload.data,
             errorLaporanRekap: action.payload.errorMessage,
           };
+
+          case GET_CEK_DATA:
+            return {
+              ...state,
+              getCekData: action.payload.data,
+              errorCekData: action.payload.errorMessage,
+            };
 
           case GET_LAPORAN_PERHARI:
             return {

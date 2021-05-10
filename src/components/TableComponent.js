@@ -24,7 +24,6 @@ import {
 } from "../actions/userAction";
 
 const { SearchBar } = Search;
-
 const handleClick = (dispatch, ID) => {
   swal({
     title: "Apakah Anda yakin akan menghapus data ini ?",
@@ -161,6 +160,7 @@ const TableComponent = (props) => {
 
   return (
     <div>
+      
       {props.getUsersList ? (
         <ToolkitProvider
           bootstrap4
@@ -170,6 +170,7 @@ const TableComponent = (props) => {
           style={{ fontWeight: "bold",padding: "2px"}}
           defaultSorted={defaultSorted}
           search
+          exportCSV
         >
           {(props) => (
             <div>
@@ -182,7 +183,6 @@ const TableComponent = (props) => {
                       </Button>
                     </Link>
                   </Col>
-
                   <Col>
                     <div className="float-right">
                       <SearchBar
@@ -194,6 +194,7 @@ const TableComponent = (props) => {
                 </Row>
 
                 <BootstrapTable
+                  id="table-to-xls"
                   {...props.baseProps}
                   pagination={paginationFactory({sizePerPage:'15'})}
                 />

@@ -3,22 +3,55 @@ import React from "react";
 import BootstrapTable from "react-bootstrap-table-next";
 import { connect } from "react-redux"
 
-
 const mapStateToProps = (state) => {
   return {
     getLaporanDetail: state.Laporan.getLaporanDetail,
+    getLaporanRekap: state.Laporan.getLaporanRekap,
     errorLaporanDetail: state.Laporan.errorLaporanDetail,
   };
 };
 
 
-
 const LaporanDetail = (props) => {
+  function TglFormater(column, colIndex, { text }) {
+    return (
+      <h6><strong>{props.getLaporanRekap.NamaKantin}  :</strong> {props.getLaporanRekap.TglAwal} - {props.getLaporanRekap.TglAkhir} </h6>
+    );
+  }
+
+  function JumlahLunchFormater(column, colIndex, { text }) {
+    return (
+      <div style={{textAlign:'center' , color:'blue'}}>
+      <h6><strong> {props.getLaporanRekap.TotalLunch}</strong>  </h6>
+      </div>
+    );
+  }
+
+  function JumlahSupperFormater(column, colIndex, { text }) {
+    return (
+      <div style={{textAlign:'center' , color:'blue'}}>
+      <h6><strong> {props.getLaporanRekap.TotalSupper}</strong>  </h6>
+      </div>
+    );
+  }
+
+  function JumlahPackMealFormater(column, colIndex, { text }) {
+    return (
+      <div style={{textAlign:'center' , color:'green'}}>
+      <h6><strong> {props.getLaporanRekap.TotalPackMeal}</strong>  </h6>
+      </div>
+    );
+  }
+  
+  
+  
   const columns = [
     {
       dataField: "Tanggal",
       text: "Date",
       sort: true,
+      footer: '',
+      footerFormatter: TglFormater,
       headerStyle: () => {
         return { width: "50px" , fontSize: '20px' ,lineHeight: '100%', textAlign:'center' };
       },
@@ -29,6 +62,8 @@ const LaporanDetail = (props) => {
     {
       dataField: "JumlahLunch",
       text: "Lunch",
+      footer: '',
+      footerFormatter: JumlahLunchFormater,
       headerStyle: () => {
         return { width: "38px" , fontSize: '20px' , lineHeight: '100%',textAlign:'center' };
       },
@@ -37,6 +72,8 @@ const LaporanDetail = (props) => {
     {
       dataField: "JumlahSupper",
       text: "Supper",
+      footer: 'Footer 3',
+      footerFormatter: JumlahSupperFormater,
       headerStyle: () => {
         return { width: "38px" , fontSize: '20px', lineHeight: '100%',textAlign:'center' };
       },
@@ -44,6 +81,8 @@ const LaporanDetail = (props) => {
     {
       dataField: "JumlahPackMeal",
       text: "PackMeal",
+      footer: 'Footer 3',
+      footerFormatter: JumlahPackMealFormater,
       headerStyle: () => {
         return { width: "38px" , fontSize: '20px', lineHeight: '100%', textAlign:'center'};
       },
@@ -60,48 +99,16 @@ const LaporanDetail = (props) => {
 
   return (
     <BootstrapTable 
+      id="laporantgl"
       keyField='Tanggal'
       classes='rDetail2' 
       data={ props.getLaporanDetail } 
       columns={ columns } 
       headerClasses='page-header-space'
       rowStyle={ { lineHeight : '75%' , fontFamily: 'Arial' , fontWeight: "bold" , fontSize:"14px", textAlign:'center' } } 
-      // defaultSorted= { defaultSorted }
     />
+    
   );
-  /*return (
-    <Container>
-      {props.getLaporanList ? (
-        <ToolkitProvider
-          bootstrap4
-          keyField="UserID"
-          data={props.getLaporanList}
-          columns={columns}
-          defaultSorted={defaultSorted}
-          search
-        >
-          {(props) => (
-            <div >
-
-
-              <BootstrapTable
-                {...props.baseProps}
-                pagination={paginationFactory()}
-              />
-            </div>
-          )}
-        </ToolkitProvider>
-      ) : (
-        <div className="text-center">
-          {props.errorLaporanList ? (
-            <h4>{props.errorLaporanList}</h4>
-          ) : (
-            <Spinner color="dark" />
-          )}
-        </div>
-      )}
-    </Container>
-  );*/
 };
 
 export default connect(mapStateToProps, null)(LaporanDetail);

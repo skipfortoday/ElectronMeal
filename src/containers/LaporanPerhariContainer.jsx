@@ -12,10 +12,11 @@ import NamaCabangLaporan from "../components/NamaCabangLaporan";
 import RekapLaporan from "../components/RekapLaporan";
 import LaporanDetailPerhari from "../components/LaporanDetailPerhari";
 import RekapLeft3 from "../components/RekapLeft3";
+import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 
 const mapStateToProps = (state) => {
   return {
-    errorLaporanDetail2: state.Laporan.errorLaporanDetail2,
+    errorLaporanDetail: state.Laporan.errorLaporanDetail,
     getLaporanPerhari: state.Laporan.getLaporanPerhari,
     getLaporanRperhari: state.Laporan.getLaporanRperhari,
     isLoading:state.Laporan.isLoading,
@@ -28,6 +29,20 @@ class ListLaporanContainer extends Component {
     this.props.dispatch(getOptKantin());
     this.props.dispatch(getOptDepartemen());
     this.props.dispatch(isInitial());
+  }
+
+  componentDidUpdate(){
+    if (this.props.getLaporanPerhari) {
+      if(!this.props.getLaporanPerhari[0]){
+      swal("Failed!", "Tidak Ada Data", "error");
+        } else if(!this.props.getLaporanPerhari2[0].Nama ) {
+          swal("Failed!", "Ada Pegawai Yang Berlum Terdaftar, Dengan PIN: " + this.props.getLaporanPerhari[0].PIN,  "error").then(() => {
+            this.props.dispatch(isInitial(),
+            this.props.dispatch(resetLaporan())
+            )
+        })  ;
+        }
+    } 
   }
 
   handleSubmit(data) {
@@ -87,6 +102,13 @@ class ListLaporanContainer extends Component {
         ) : ("") }
         {this.props.getLaporanPerhari[0] ? (
       <Container>
+        <ReactHTMLTableToExcel
+                    id="test-table-xls"
+                    className="download-table-xls-button"
+                    table="laporanharian"
+                    filename="tablexls"
+                    sheet="tablexls"
+                    buttonText="Download as XLS"/>
       <Row className="page-header">
         <NamaCabangLaporan />
         <RekapLaporan />
@@ -97,9 +119,7 @@ class ListLaporanContainer extends Component {
       </Row>
       </Container>
          ) : (
-          <div style={{textAlign:"center", padding:"30px 0px"}}>
-          <h4>Data Kosong</h4> 
-       </div>
+       ""
         )}
         </div>):("")}
     </div>

@@ -2,11 +2,6 @@ const electron = require('electron');
 const {app, BrowserWindow} = require('electron');
 const serve = require('electron-serve');
 const path = require('path');
-const pm2 = require('@tpp/pm2')
- 	pm2.start({
-		script: 'server.js',
-		cwd: './'
-	})
 const loadURL = serve({directory: 'build'});
 
 let mainWindow;

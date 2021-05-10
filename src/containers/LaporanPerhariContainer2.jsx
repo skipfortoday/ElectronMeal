@@ -18,6 +18,7 @@ import NamaCabangLaporan from "../components/NamaCabangLaporan";
 import RekapLaporan2 from "../components/RekapLaporan2";
 import LaporanDetailPerhari2 from "../components/LaporanDetailPerhari2";
 import RekapLeft2 from "../components/RekapLeft2";
+import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 
 
 const mapStateToProps = (state) => {
@@ -26,7 +27,8 @@ const mapStateToProps = (state) => {
     getLaporanPerhari2: state.Laporan.getLaporanPerhari2,
     getLaporanRperhari2: state.Laporan.getLaporanRperhari2,
     isLoading:state.Laporan.isLoading,
-    isInitial:state.Laporan.isInitial
+    isInitial:state.Laporan.isInitial,
+    isEmpety:state.Laporan.isEmpety,
   };
 };
 
@@ -34,6 +36,20 @@ class LaporanPerhari2 extends Component {
   componentDidMount() {
     this.props.dispatch(getOptKantin());
     this.props.dispatch(isInitial());
+  }
+
+  componentDidUpdate(){
+    if (this.props.getLaporanPerhari2) {
+      if(!this.props.getLaporanPerhari2[0]){
+      swal("Failed!", "Tidak Ada Data", "error");
+        } else if(!this.props.getLaporanPerhari2[0].Nama ) {
+          swal("Failed!", "Ada Pegawai Yang Berlum Terdaftar, Dengan PIN: " + this.props.getLaporanPerhari2[0].PIN,  "error").then(() => {
+            this.props.dispatch(isInitial(),
+            this.props.dispatch(resetLaporan())
+            )
+        })  ;
+        }
+    } 
   }
 
   handleSubmit(data) {
@@ -53,13 +69,15 @@ class LaporanPerhari2 extends Component {
     );
   
     this.props.dispatch(setLoading(true));
+    this.props.dispatch(isInitial(true));
   }
   render() {
     let ambil = JSON.parse(localStorage.getItem('user'));
     if (!localStorage.getItem('user')|| ambil.Login === "false") {
       swal("Failed!", "Login Dulu Bosq", "error");
       return <Redirect to="/home" /> ;
-    } 
+    }   
+
     return (
         
       <div>
@@ -86,8 +104,15 @@ class LaporanPerhari2 extends Component {
             <Spinner />
           </div>
         ) : ("") }
-        {this.props.getLaporanPerhari2[0] ? (
+      {this.props.getLaporanPerhari2[0] ? (
       <Container>
+        <ReactHTMLTableToExcel
+                    id="test-table-xls"
+                    className="download-table-xls-button"
+                    table="laporanharian2"
+                    filename="tablexls"
+                    sheet="tablexls"
+                    buttonText="Download as XLS"/>
       <Row className="page-header">
         <NamaCabangLaporan />
         <RekapLaporan2 />
@@ -97,10 +122,10 @@ class LaporanPerhari2 extends Component {
         <RekapLeft2 />
       </Row>
       </Container>
-       ) : (
-        <div style={{textAlign:"center", padding:"30px 0px"}}>
-         <h4>Data Kosong</h4> 
-      </div>
+       ) : (""
+      //   <div style={{textAlign:"center", padding:"30px 0px"}}>
+      //    <h4>Data Kosong</h4> 
+      // </div>
       )}
        </div>):("")}
     </div>

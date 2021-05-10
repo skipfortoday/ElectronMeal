@@ -9,8 +9,9 @@ export const GET_LAPORAN_PERHARI2 = "GET_LAPORAN_PERHARI2";
 export const GET_LAPORAN_RPERHARI2 = "GET_LAPORAN_RPERHARI2";
 export const IS_LOADING = "IS_LOADING";
 export const IS_INITIAL = "IS_INITIAL";
+export const IS_EMPETY = "IS_EMPETY";
 export const RESET_LAPORAN = "RESET_LAPORAN";
-
+export const GET_CEK_DATA = "GET_CEK_DATA";
 
 
 export const setLoading = (val) => {
@@ -28,6 +29,17 @@ export const isInitial = (value) => {
   return (dispatch) => {
     dispatch({
       type:IS_INITIAL,
+      payload:{
+        data:value
+      }
+    })
+  }
+}
+
+export const isEmpety= (value) => {
+  return (dispatch) => {
+    dispatch({
+      type:IS_EMPETY,
       payload:{
         data:value
       }
@@ -86,6 +98,31 @@ export const getLaporanRekap = (UserID,TglAwal,TglAkhir) => {
       .catch(function (error) {
         dispatch({
           type: GET_LAPORAN_REKAP,
+          payload: {
+            data: false,
+            errorMessage: error.message,
+          },
+        });
+      });
+  };
+};
+
+export const getCekData= (UserID,TglAwal,TglAkhir) => {
+  return (dispatch) => {
+    axios
+      .get("http://"+BaseUrl+"/api/cekdata/"+UserID+"&"+TglAwal+"&"+TglAkhir)
+      .then(function (response) {
+        dispatch({
+          type: GET_CEK_DATA,
+          payload: {
+            data: response.data ,
+            errorMessage: false,
+          },
+        });
+      })
+      .catch(function (error) {
+        dispatch({
+          type: GET_CEK_DATA,
           payload: {
             data: false,
             errorMessage: error.message,

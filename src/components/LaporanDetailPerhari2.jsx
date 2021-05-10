@@ -8,17 +8,60 @@ import {   Spinner } from "reactstrap";
 const mapStateToProps = (state) => {
   return {
     getLaporanPerhari2: state.Laporan.getLaporanPerhari2,
+    getLaporanRperhari2: state.Laporan.getLaporanRperhari2,
     errorLaporanPerhari2: state.Laporan.errorLaporanPerhari2,
   };
 };
 
 
 const LaporanDetailPerhari2 = (props) => {
+
+  function KantinFormater() {
+    return (
+      <div style={{textAlign:'center'}}>
+      <h6><strong>Kantin :  {props.getLaporanRperhari2.NamaKantin}</strong> </h6>
+      </div>
+    );
+  }
+
+  function TanggalFormater() {
+    return (
+      <div style={{textAlign:'center'}}>
+      <h6><strong>{props.getLaporanRperhari2.Tanggal}</strong> </h6>
+      </div>
+    );
+  }
+
+  function JumlahLunchFormater() {
+    return (
+      <div style={{textAlign:'center' , color:'blue'}}>
+      <h6><strong>{props.getLaporanRperhari2.TotalLunch}</strong>  </h6>
+      </div>
+    );
+  }
+
+  function JumlahSupperFormater() {
+    return (
+      <div style={{textAlign:'center' , color:'blue'}}>
+      <h6><strong> {props.getLaporanRperhari2.TotalSupper}</strong>  </h6>
+      </div>
+    );
+  }
+
+  function JumlahPackMealFormater(column, colIndex, { text }) {
+    return (
+      <div style={{textAlign:'center' , color:'green'}}>
+      <h6><strong> {props.getLaporanRperhari2.TotalPackMeal}</strong>  </h6>
+      </div>
+    );
+  }
   const columns = [
     {
       dataField: "Nama",
       text: "Nama",
       sort: true,
+      footer: '',
+      footerFormatter: KantinFormater,
       headerStyle: () => {
         return { width: "100px" , fontSize: '20px' ,lineHeight: '100%', textAlign:'center' };
       },
@@ -30,6 +73,8 @@ const LaporanDetailPerhari2 = (props) => {
       dataField: "NamaKantor",
       text: "Kantor",
       sort: true,
+      footer: '',
+      footerFormatter: TanggalFormater,
       headerStyle: () => {
         return { width: "70px" , fontSize: '20px' ,lineHeight: '100%', textAlign:'center' };
       },
@@ -40,6 +85,8 @@ const LaporanDetailPerhari2 = (props) => {
     {
       dataField: "Lunch",
       text: "Lunch",
+      footer: '',
+      footerFormatter: JumlahLunchFormater,
       headerStyle: () => {
         return { width: "38px" , fontSize: '20px' , lineHeight: '100%',textAlign:'center' };
       },
@@ -48,6 +95,8 @@ const LaporanDetailPerhari2 = (props) => {
     {
       dataField: "Supper",
       text: "Supper",
+      footer: '',
+      footerFormatter: JumlahSupperFormater,
       headerStyle: () => {
         return { width: "38px" , fontSize: '20px', lineHeight: '100%',textAlign:'center' };
       },
@@ -55,6 +104,8 @@ const LaporanDetailPerhari2 = (props) => {
     {
       dataField: "PackMeal",
       text: "PackMeal",
+      footer: '',
+      footerFormatter: JumlahPackMealFormater,
       headerStyle: () => {
         return { width: "38px" , fontSize: '20px', lineHeight: '100%', textAlign:'center'};
       },
@@ -71,7 +122,8 @@ const LaporanDetailPerhari2 = (props) => {
       {props.getLaporanPerhari2  ? (
         
         <div>
-         < BootstrapTable 
+      < BootstrapTable 
+      id='laporanharian2'
       keyField='Nama'
       classes='rDetail2' 
       data={ props.getLaporanPerhari2 } 

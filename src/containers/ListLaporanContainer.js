@@ -12,7 +12,9 @@ import NamaCabangLaporan from "../components/NamaCabangLaporan";
 import RekapLaporanPertanggal from "../components/RekapLaporanPertanggal";
 import RekapLeft from "../components/RekapLeft";
 import LaporanDetail from "../components/LaporanDetail";
-import { getLaporanDetail, getLaporanRekap, isInitial, resetLaporan, setLoading } from "../actions/laporanAction";
+import { getCekData, getLaporanDetail, getLaporanRekap, isInitial, resetLaporan, setLoading } from "../actions/laporanAction";
+import ReactHTMLTableToExcel from 'react-html-table-to-excel';
+
 
 const mapStateToProps = (state) => {
   return {
@@ -20,7 +22,8 @@ const mapStateToProps = (state) => {
     getLaporanRekap: state.Laporan.getLaporanRekap,
     errorLaporanDetail: state.Laporan.errorLaporanDetail,
     isLoading:state.Laporan.isLoading,
-    isInitial:state.Laporan.isInitial
+    isInitial:state.Laporan.isInitial,
+    getCekData:state.Laporan.getCekData
   };
 };
 
@@ -30,6 +33,14 @@ class ListLaporanContainer extends Component {
     this.props.dispatch(getOptKantin());
     this.props.dispatch(getUsersList());
     this.props.dispatch(isInitial());
+  }
+
+  componentDidUpdate(){
+    if (this.props.getCekData[0]) {
+        swal("Failed!", " Laporan di tanggal yang dipilih Tidak Sesuai, Tambah Pegawai Dengan PIN: " + this.props.getCekData[0].PIN , "error").then(() => {
+          this.props.dispatch(isInitial(),this.props.dispatch(resetLaporan()))
+      })
+    }
   }
 
   handleSubmit(data) {
@@ -49,6 +60,14 @@ class ListLaporanContainer extends Component {
         data.TglAkhir
       )
     );
+    this.props.dispatch(
+      getCekData(
+        data.Kantin.value,
+        data.TglAwal,
+        data.TglAkhir
+      )
+    );
+
     this.props.dispatch(setLoading(true));
   }
 
@@ -84,6 +103,13 @@ class ListLaporanContainer extends Component {
         ) : ("") }
          {this.props.getLaporanRekap ? (
         <Container>
+        <ReactHTMLTableToExcel
+                    id="test-table-xls"
+                    className="download-table-xls-button"
+                    table="laporantgl"
+                    filename="tablexls"
+                    sheet="tablexls"
+                    buttonText="Download as XLS"/>
         <Row className="page-header">
           <NamaCabangLaporan />
           <RekapLaporanPertanggal />

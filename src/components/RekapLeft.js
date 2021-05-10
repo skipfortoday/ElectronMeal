@@ -15,22 +15,6 @@ const RekapLeft = (props) => {
   return (
     <Table>
       <tbody style={{fontSize: '14px' , fontWeight: "bold", fontFamily : "Arial"}}>
-        <tr style={{ lineHeight : '9px' }} >
-        <td style={{ width : '600px' }}>TOTAL</td>
-          <td style={{ width : '150px' }}>Lunch</td>
-          <td >:</td>
-          <td>{props.getLaporanRekap.TotalLunch}</td>
-          <td ></td>
-          <td ></td>
-          <td ></td>
-          <td style={{ width : '170px' }}>Supper</td>
-          <td >:</td>
-          <td >{props.getLaporanRekap.TotalSupper}</td>
-          <td style={{ width : '150px' }}></td>
-          <td style={{ width : '170px' }}>PackMeal</td>
-          <td >:</td>
-          <td style={{ width : '200px', color : 'green' }}>{props.getLaporanRekap.TotalPackMeal}</td>
-        </tr> 
         <tr>
           <td style={{fontSize: '12px' , fontWeight: "bold", fontFamily : "Arial"}}>
            Prepared BY
