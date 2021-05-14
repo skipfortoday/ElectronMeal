@@ -19,7 +19,7 @@ const LaporanDetailPerhari3 = (props) => {
   function KantinFormater() {
     return (
       <div style={{textAlign:'center'}}>
-      <h6><strong>Kantin :  {props.getLaporanRperhari2.NamaKantin}</strong> </h6>
+      {props.getLaporanRperhari2.NamaKantin}
       </div>
     );
   }
@@ -27,7 +27,7 @@ const LaporanDetailPerhari3 = (props) => {
   function TanggalFormater() {
     return (
       <div style={{textAlign:'center'}}>
-      <h6><strong>{props.getLaporanRperhari2.Tanggal}</strong> </h6>
+     {props.getLaporanRperhari2.Tanggal}
       </div>
     );
   }
@@ -35,103 +35,107 @@ const LaporanDetailPerhari3 = (props) => {
   function TotalFormater() {
     return (
       <div style={{textAlign:'center'}}>
-      <h6><strong>Total : </strong></h6>
+      Total : 
       </div>
     );
   }
 
   function JumlahLunchFormater() {
     return (
-      <div style={{textAlign:'center' , color:'blue'}}>
-      <h6><strong>{props.getLaporanRperhari2.TotalLunch}</strong>  </h6>
-      </div>
-    );
-  }
-
-  function JumlahSupperFormater() {
-    return (
-      <div style={{textAlign:'center' , color:'blue'}}>
-      <h6><strong> {props.getLaporanRperhari2.TotalSupper}</strong>  </h6>
-      </div>
-    );
-  }
-
-  function JumlahPackMealFormater(column, colIndex, { text }) {
-    return (
       <div style={{textAlign:'center' , color:'green'}}>
-      <h6><strong> {props.getLaporanRperhari2.TotalPackMeal}</strong>  </h6>
+        Lunch : {props.getLaporanRperhari2.TotalLunch} Supper : {props.getLaporanRperhari2.TotalSupper} PackMeal : {props.getLaporanRperhari2.TotalPackMeal}
       </div>
     );
   }
+
   const columns = [
-    {
-      dataField: "Nama",
-      text: "Nama",
-      sort: true,
-      footer: '',
-      footerFormatter: KantinFormater,
-      headerStyle: () => {
-        return { width: "100px" , fontSize: '20px' ,lineHeight: '100%', textAlign:'center' };
-      },
-      style: () => {
-        return {   fontSize :'18px' ,textAlign:'center',fontWeight: "bold"};
-      },
-    },
     {
       dataField: "NIP",
       text: "NIP",
       sort: true,
       footer: '',
-      footerFormatter:TanggalFormater,
+      footerFormatter:KantinFormater,
       headerStyle: () => {
-        return { width: "80px" , fontSize: '20px' ,lineHeight: '100%', textAlign:'center' };
+        return { width: "20px" , fontSize: '20px' ,lineHeight: '100%', textAlign:'center' };
       },
       style: () => {
-        return {   fontSize :'18px' ,textAlign:'center',fontWeight: "bold"};
+        return { textAlign:'left'};
       },
     },
     {
-      dataField: "NamaKantor",
-      text: "Kantor",
+      dataField: "Nama",
+      text: "Nama",
       sort: true,
       footer: '',
+      footerFormatter: TanggalFormater,
+      headerStyle: () => {
+        return { width: "60px" , fontSize: '20px' ,lineHeight: '100%', textAlign:'center' };
+      },
+      footerStyle: () => {
+        return { fontSize: '12  px'  };
+      },
+      style: () => {
+        return { textAlign:'left'};
+      },
+    },
+    {
+      dataField: "JamLunch",
+      text: "Lunch",
+      footer: '',
+      headerStyle: () => {
+        return { width: "20px", lineHeight: '100%',textAlign:'center', fontSize: '20px' };
+      },
+    },
+    {
+      dataField: "JamSupper",
+      text: "Supper",
+      footer: '',
       footerFormatter: TotalFormater,
+      footerStyle: () => {
+        return { fontSize: '12px'  };
+      },
+      headerStyle: () => {
+        return { width: "30px" , lineHeight: '100%',textAlign:'center' , fontSize: '20px'};
+      },
+    },
+    {
+      dataField: "Departemen",
+      text: "Departement",
+      sort: true,
+      footer: '',
+      footerFormatter: JumlahLunchFormater,
+      footerStyle: () => {
+        return { fontSize: '10.5px'  };
+      },
       headerStyle: () => {
         return { width: "50px" , fontSize: '20px' ,lineHeight: '100%', textAlign:'center' };
       },
       style: () => {
-        return {   fontSize :'14px' ,textAlign:'center'};
+        return {textAlign:'center'};
       },
     },
     {
-      dataField: "Lunch",
-      text: "Lunch",
+      dataField: "NamaKantor",
+      text: "Enity",
+      sort: true,
       footer: '',
-      footerFormatter: JumlahLunchFormater,
       headerStyle: () => {
-        return { width: "38px" , fontSize: '20px' , lineHeight: '100%',textAlign:'center' };
+        return { width: "30px" , fontSize: '20px' ,lineHeight: '100%', textAlign:'center' };
       },
-    },
-    
-    {
-      dataField: "Supper",
-      text: "Supper",
-      footer: '',
-      footerFormatter: JumlahSupperFormater,
-      headerStyle: () => {
-        return { width: "38px" , fontSize: '20px', lineHeight: '100%',textAlign:'center' };
+      style: () => {
+        return { textAlign:'center'};
       },
     },
     {
-      dataField: "PackMeal",
-      text: "PackMeal",
+      dataField: "Status",
+      text: "Status  ",
+      sort: true,
       footer: '',
-      footerFormatter: JumlahPackMealFormater,
       headerStyle: () => {
         return { width: "38px" , fontSize: '20px', lineHeight: '100%', textAlign:'center'};
       },
       style: () => {
-        return { color: 'green' };
+        return { textAlign:'center' };
       },
 
     }
@@ -150,7 +154,7 @@ const LaporanDetailPerhari3 = (props) => {
       data={ props.getLaporanPerhari2 } 
       columns={ columns } 
       headerClasses='page-header-space'
-      rowStyle={ { lineHeight : '75%' , fontFamily: 'Arial' , fontWeight: "bold" , fontSize:"14px", textAlign:'center' } } 
+      rowStyle={ { lineHeight : '75%' , fontFamily: 'Arial' , fontSize:"12px", textAlign:'center' } } 
       // defaultSorted= { defaultSorted }
     />
         </div>

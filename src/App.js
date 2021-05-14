@@ -15,6 +15,7 @@ import KantinContainer from "./containers/KantinContainer";
 import LaporanPerhariContainer from "./containers/LaporanPerhariContainer";
 import JadwalContainer from "./containers/JadwalContainer";
 import LaporanPerhariContainer2 from "./containers/LaporanPerhariContainer2";
+import LaporanPerhariContainer3 from "./containers/LaporanPerhariContainer3";
 
 
 //Context
@@ -75,6 +76,7 @@ function App () {
           <Route path="/laporan" exact component={ListLaporanContainer} />
           <Route path="/laporanperhari" exact component={LaporanPerhariContainer} />
           <Route path="/laporanperhari2" exact component={LaporanPerhariContainer2} />
+          <Route path="/laporanperhari3" exact component={LaporanPerhariContainer3} />
 
           <Route path="/cabang" exact component={CabangContainer} />
           <Route path="/cabang/:KodeCabang" exact component={CabangContainer} />

@@ -16,9 +16,9 @@ import PrintButton from "../components/PrintButton";
 import { Container, Row, Spinner } from "reactstrap";
 import NamaCabangLaporan from "../components/NamaCabangLaporan";
 import RekapLaporan2 from "../components/RekapLaporan2";
-import LaporanDetailPerhari2 from "../components/LaporanDetailPerhari2";
 import RekapLeft2 from "../components/RekapLeft2";
 import ReactHTMLTableToExcel from 'react-html-table-to-excel';
+import LaporanDetailPerhari3 from "../components/LaporanDetailPerhari3";
 
 
 const mapStateToProps = (state) => {
@@ -118,7 +118,7 @@ class LaporanPerhari2 extends Component {
         <RekapLaporan2 />
       </Row>
       <Row>
-        <LaporanDetailPerhari2 />
+        <LaporanDetailPerhari3 />
         <RekapLeft2 />
       </Row>
       </Container>
