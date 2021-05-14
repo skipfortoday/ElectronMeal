@@ -6,17 +6,10 @@ const bodyParser = require("body-parser");
 const app = express();
 const mysql = require("mysql");
 const { request } = require("express");
-let session = require("express-session");
-
-
+const path = require("path");
+// parse application/json
+app.use("/public", express.static(path.join(__dirname, 'public')));
 app.use(cors());
-app.use(
-  session({
-    secret: "secret",
-    resave: true,
-    saveUninitialized: true,
-  })
-);
 app.use(
   bodyParser.urlencoded({
     extended: true,
@@ -570,12 +563,6 @@ app.get("/api/ReportPertanggal/:id&:TglAwal&:TglAkhir", (req, res) => {
   };
 
 
-  //Mendapatkan Nama Orang Perkantorr
-
-
-
-  // Mendapatkan Tanggal Yang Kosong 
-
   let sql2 = `SELECT  *FROM tbltanggal WHERE Tanggal BETWEEN "`+post.TglAwal+`" AND "`+post.TglAkhir+`"`
   let sql3 = `SELECT DATE_FORMAT(Tanggal, "%W, %d %M  %Y") as Tanggal,JumlahLunch,JumlahSupper,JumlahPackMeal FROM tbltanggal WHERE Tanggal BETWEEN "`+post.TglAwal+`" AND "`+post.TglAkhir+`"`
 
@@ -755,7 +742,7 @@ app.get("/api/ReportPerhari2/:id&:Tanggal", (req, res) => {
           for (i = 0; i < data.length; i++)
           { conn.query(`CALL tmpLaporanHarian('`+data[i].PIN+`','`+post.Tanggal+`','`+post.SNMesin+`')`); }
           let query = conn.query(sql4, (err, results) => {
-            if (err) res.send(err);
+            if (err) console.log(err);
             else {
               conn.query(`CALL RekapPerhari2 ('` +req.params.id + `','` +req.params.Tanggal +
               `')`,function (err, rows) { if (err) res.send(err);
@@ -771,6 +758,21 @@ app.get("/api/ReportPerhari2/:id&:Tanggal", (req, res) => {
     });
 };
 });
+});
+
+
+// Pengecekan Laporan Apakah Ada data yang kurang lengkap 
+
+app.get("/api/cekdata/:id&:TglAwal&:TglAkhir", (req, res) => {
+  let sql = `SELECT DISTINCT(a.PIN) FROM att_log a
+  LEFT OUTER JOIN tblpegawai b ON a.pin = b.pin
+  WHERE a.sn = '${req.params.id}' 
+  and a.scan_date BETWEEN '${req.params.TglAwal}' AND '${req.params.TglAkhir}'
+  and b.nama is null`;
+  conn.query(sql, (err, results) => {
+    if (err) res.send(err);
+    res.json(results);
+  });
 });
 
 

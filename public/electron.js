@@ -3,7 +3,6 @@ const {app, BrowserWindow} = require('electron');
 const serve = require('electron-serve');
 const path = require('path');
 const loadURL = serve({directory: 'build'});
-
 let mainWindow;
 
 (async () => {
@@ -20,12 +19,17 @@ let mainWindow;
       	maximizable: true,
         autoHideMenuBar: true,
         backgroundColor:'#f7a440',
-      	icon: path.join(__dirname, 'build/favicon.ico')
+      	icon: path.join(__dirname, 'build/favicon.ico'),
+		webPreferences: {
+			nodeIntegration: true,
+			preload: path.join(__dirname, './server.js')
+		  }
 	});
 
 	// await mainWindow.setMenu(menu);
 	await loadURL(mainWindow);
-
+	
+	// await require(path.join(__dirname, 'build/server.js'));
 	// The above is equivalent to this:
 	await mainWindow.loadURL('build');
 	// The `-` is just the required hostname

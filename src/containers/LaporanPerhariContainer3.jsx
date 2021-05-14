@@ -1,42 +1,49 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import {
+  getLaporanPerhari2,
+  getLaporanRperhari2,
+  isInitial,
+  resetLaporan,
+  setLoading,
+} from "../actions/laporanAction";
 import NavbarComponent from "../components/NavbarComponent";
-import {  getOptDepartemen, getOptKantin } from "../actions/optAction";
-import FormLaporanPerhari from "../components/FormLaporanPerhari";
+import {  getOptKantin } from "../actions/optAction";
+import FormLaporanPerhari2 from "../components/FormLaporanPerhari2";
 import {Redirect} from "react-router-dom";
 import swal from "sweetalert";
-import { getLaporanPerhari, getLaporanRperhari, isInitial, resetLaporan, setLoading } from "../actions/laporanAction";
 import PrintButton from "../components/PrintButton";
 import { Container, Row, Spinner } from "reactstrap";
 import NamaCabangLaporan from "../components/NamaCabangLaporan";
-import RekapLaporan from "../components/RekapLaporan";
-import LaporanDetailPerhari from "../components/LaporanDetailPerhari";
-import RekapLeft3 from "../components/RekapLeft3";
+import RekapLaporan2 from "../components/RekapLaporan2";
+import LaporanDetailPerhari2 from "../components/LaporanDetailPerhari2";
+import RekapLeft2 from "../components/RekapLeft2";
 import ReactHTMLTableToExcel from 'react-html-table-to-excel';
+
 
 const mapStateToProps = (state) => {
   return {
-    errorLaporanDetail: state.Laporan.errorLaporanDetail,
-    getLaporanPerhari: state.Laporan.getLaporanPerhari,
-    getLaporanRperhari: state.Laporan.getLaporanRperhari,
+    errorLaporanDetail2: state.Laporan.errorLaporanDetail2,
+    getLaporanPerhari2: state.Laporan.getLaporanPerhari2,
+    getLaporanRperhari2: state.Laporan.getLaporanRperhari2,
     isLoading:state.Laporan.isLoading,
-    isInitial:state.Laporan.isInitial
+    isInitial:state.Laporan.isInitial,
+    isEmpety:state.Laporan.isEmpety,
   };
 };
 
-class ListLaporanContainer extends Component {
+class LaporanPerhari2 extends Component {
   componentDidMount() {
     this.props.dispatch(getOptKantin());
-    this.props.dispatch(getOptDepartemen());
     this.props.dispatch(isInitial());
   }
 
   componentDidUpdate(){
-    if (this.props.getLaporanPerhari) {
-      if(!this.props.getLaporanPerhari[0]){
+    if (this.props.getLaporanPerhari2) {
+      if(!this.props.getLaporanPerhari2[0]){
       swal("Failed!", "Tidak Ada Data", "error");
         } else if(!this.props.getLaporanPerhari2[0].Nama ) {
-          swal("Failed!", "Ada Pegawai Yang Berlum Terdaftar, Dengan PIN: " + this.props.getLaporanPerhari[0].PIN,  "error").then(() => {
+          swal("Failed!", "Ada Pegawai Yang Berlum Terdaftar, Dengan PIN: " + this.props.getLaporanPerhari2[0].PIN,  "error").then(() => {
             this.props.dispatch(isInitial(),
             this.props.dispatch(resetLaporan())
             )
@@ -46,49 +53,46 @@ class ListLaporanContainer extends Component {
   }
 
   handleSubmit(data) {
-    console.log(data)
+     console.log(data)
     this.props.dispatch(resetLaporan());
     this.props.dispatch(
-      getLaporanRperhari(
+      getLaporanRperhari2(
        data.Kantin.value,
        data.Tanggal,
-       data.Departemen.value
       )
     );
     this.props.dispatch(
-      getLaporanPerhari(
-      data.Kantin.value,
+      getLaporanPerhari2(
+        data.Kantin.value,
        data.Tanggal,
-       data.Departemen.value
       )
     );
- 
-   this.props.dispatch(setLoading(true));
- }
   
-
+    this.props.dispatch(setLoading(true));
+    this.props.dispatch(isInitial(true));
+  }
   render() {
     let ambil = JSON.parse(localStorage.getItem('user'));
     if (!localStorage.getItem('user')|| ambil.Login === "false") {
       swal("Failed!", "Login Dulu Bosq", "error");
       return <Redirect to="/home" /> ;
-    } 
+    }   
+
     return (
-      
+        
       <div>
       <NavbarComponent />
       <div class="header-1" style={{ backgroundColor: "#fec107" }}>
         <tr>
           <td width="400"></td>
           <td>
-            <FormLaporanPerhari onSubmit={(data) => this.handleSubmit(data)}/>
+            <FormLaporanPerhari2 onSubmit={(data) => this.handleSubmit(data)}/>
           </td>
           <td width="50"></td>
           <td>
             <tr>
               .
               <PrintButton /> 
-              
             </tr>
           </td>
         </tr>
@@ -100,31 +104,33 @@ class ListLaporanContainer extends Component {
             <Spinner />
           </div>
         ) : ("") }
-        {this.props.getLaporanPerhari[0] ? (
+      {this.props.getLaporanPerhari2[0] ? (
       <Container>
         <ReactHTMLTableToExcel
                     id="test-table-xls"
                     className="download-table-xls-button"
-                    table="laporanharian"
+                    table="laporanharian3"
                     filename="tablexls"
                     sheet="tablexls"
                     buttonText="Download as XLS"/>
       <Row className="page-header">
         <NamaCabangLaporan />
-        <RekapLaporan />
+        <RekapLaporan2 />
       </Row>
       <Row>
-        <LaporanDetailPerhari />
-        <RekapLeft3 />
+        <LaporanDetailPerhari2 />
+        <RekapLeft2 />
       </Row>
       </Container>
-         ) : (
-       ""
-        )}
-        </div>):("")}
+       ) : (""
+      //   <div style={{textAlign:"center", padding:"30px 0px"}}>
+      //    <h4>Data Kosong</h4> 
+      // </div>
+      )}
+       </div>):("")}
     </div>
     );
   }
 }
 
-export default connect(mapStateToProps,null)(ListLaporanContainer);
+export default connect(mapStateToProps,null)(LaporanPerhari2);

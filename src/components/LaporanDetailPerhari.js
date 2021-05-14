@@ -23,6 +23,14 @@ const LaporanDetailPerhari = (props) => {
     );
   }
 
+  function TotalFormater() {
+    return (
+      <div style={{textAlign:'center'}}>
+      <h6><strong>Total : </strong></h6>
+      </div>
+    );
+  } 
+
   function TanggalFormater() {
     return (
       <div style={{textAlign:'center'}}>
@@ -69,13 +77,26 @@ const LaporanDetailPerhari = (props) => {
       },
     },
     {
+      dataField: "NIP",
+      text: "NIP",
+      sort: true,
+      footer: '',
+      footerFormatter:TanggalFormater,
+      headerStyle: () => {
+        return { width: "80px" , fontSize: '20px' ,lineHeight: '100%', textAlign:'center' };
+      },
+      style: () => {
+        return {   fontSize :'18px' ,textAlign:'center',fontWeight: "bold"};
+      },
+    },
+    {
       dataField: "NamaKantor",
       text: "Kantor",
       sort: true,
       footer: '',
-      footerFormatter: TanggalFormater,
+      footerFormatter: TotalFormater,
       headerStyle: () => {
-        return { width: "70px" , fontSize: '20px' ,lineHeight: '100%', textAlign:'center' };
+        return { width: "50px" , fontSize: '20px' ,lineHeight: '100%', textAlign:'center' };
       },
       style: () => {
         return {   fontSize :'14px' ,textAlign:'center'};

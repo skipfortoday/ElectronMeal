@@ -184,6 +184,7 @@ export const getLaporanRperhari = (UserID,Tanggal,Kantor) => {
 };
 
 export const getLaporanPerhari2 = (UserID,Tanggal) => {
+  console.log(UserID)
   return (dispatch) => {
     axios
       .get("http://"+BaseUrl+"/api/ReportPerhari2/"+UserID+"&"+Tanggal)
@@ -209,6 +210,7 @@ export const getLaporanPerhari2 = (UserID,Tanggal) => {
 };
 
 export const getLaporanRperhari2 = (UserID,Tanggal) => {
+  console.log(UserID)
   return (dispatch) => {
     axios
       .get("http://"+BaseUrl+"/api/ReportPerhari2/"+UserID+"&"+Tanggal)

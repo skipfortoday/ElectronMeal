@@ -14,7 +14,7 @@ const mapStateToProps = (state) => {
 };
 
 
-const LaporanDetailPerhari2 = (props) => {
+const LaporanDetailPerhari3 = (props) => {
 
   function KantinFormater() {
     return (
@@ -144,7 +144,7 @@ const LaporanDetailPerhari2 = (props) => {
         
         <div>
       < BootstrapTable 
-      id='laporanharian2'
+      id='laporanharian3'
       keyField='Nama'
       classes='rDetail2' 
       data={ props.getLaporanPerhari2 } 
@@ -167,4 +167,4 @@ const LaporanDetailPerhari2 = (props) => {
   );
 };
 
-export default connect(mapStateToProps, null)(LaporanDetailPerhari2);
+export default connect(mapStateToProps, null)(LaporanDetailPerhari3);
